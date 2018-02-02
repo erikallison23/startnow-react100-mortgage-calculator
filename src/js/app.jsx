@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class App extends React.Component {
-  // your Javascript goes here
+  // sets the state.
   constructor(props) {
     super(props);
     this.state = {
@@ -10,27 +10,27 @@ export default class App extends React.Component {
       term: '15',
       output: ''
     };
+    //binds functions to this.
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
   };
+  //function sets name and value variables to targets and sets the state.
   handleChange(event) {
     let name = event.target.name;
     let value = event.target.value;
-    console.log("name: ", name);
-    console.log("value: ", value);
     this.setState({
       [name]: parseFloat(value)
     })
   };
+  //function calculates the mortgage payment.
   calc(balance, rate, term) {
     const p = balance;
     const r = ((rate * 1) / 100 / 12);
     const t = parseInt(term) * 12;
     const m = p * (r * Math.pow((1 + r), t)) / (Math.pow((1 + r), t) - 1);
-
-    console.log(m);
     return m;
   };
+  //function triggers the calculate button.
   submit(event) {
     event.preventDefault();
     const pay = '$' + this.calc(this.state.balance, this.state.rate, this.state.term).toFixed(2) + ' is your payment' || '';
@@ -39,7 +39,7 @@ export default class App extends React.Component {
     })
   };
 
-
+  //renders and returns the app into the jsx.
   render() {
     return (
       <div className='container'>
